@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Enterprise.Agent.Prompts</RootNamespace>
+    <AssemblyName>Enterprise.Agent.Prompts</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Agent.Shared\Enterprise.Agent.Shared.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Models\Enterprise.Agent.Models.csproj" />
+  </ItemGroup>
+
+  <!-- Prompt templates are shipped as embedded resources and versioned on disk. -->
+  <ItemGroup>
+    <EmbeddedResource Include="Library\**\*.prompt.md" />
+  </ItemGroup>
+
+</Project>

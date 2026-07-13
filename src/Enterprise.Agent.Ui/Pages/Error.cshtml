@@ -1,0 +1,15 @@
+@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+<div class="card mx-auto max-w-lg rounded-xl p-8 text-center">
+    <div class="text-4xl">⚠️</div>
+    <h2 class="mt-3 text-xl font-semibold">Something went wrong</h2>
+    <p class="mt-2 text-sm text-slate-400">An unexpected error occurred while processing your request.</p>
+    @if (Model.ShowRequestId)
+    {
+        <p class="mt-3 text-xs text-slate-500">Request ID: <code>@Model.RequestId</code></p>
+    }
+    <a asp-page="/Index" class="mt-6 inline-block rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium hover:bg-violet-500">Back to dashboard</a>
+</div>

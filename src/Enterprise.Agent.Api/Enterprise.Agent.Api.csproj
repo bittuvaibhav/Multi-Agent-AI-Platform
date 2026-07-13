@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>Enterprise.Agent.Api</RootNamespace>
+    <AssemblyName>Enterprise.Agent.Api</AssemblyName>
+    <UserSecretsId>enterprise-agent-api-2b8f6a1e-4c3d-4f9a-9d21-7f0c2a5e6b13</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Scalar.AspNetCore" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Agent.Shared\Enterprise.Agent.Shared.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Models\Enterprise.Agent.Models.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Core\Enterprise.Agent.Core.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Prompts\Enterprise.Agent.Prompts.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.VectorStore\Enterprise.Agent.VectorStore.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Memory\Enterprise.Agent.Memory.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Tools\Enterprise.Agent.Tools.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Plugins\Enterprise.Agent.Plugins.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Persistence\Enterprise.Agent.Persistence.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Security\Enterprise.Agent.Security.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Infrastructure\Enterprise.Agent.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

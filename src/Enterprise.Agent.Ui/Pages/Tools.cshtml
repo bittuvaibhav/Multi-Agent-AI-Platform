@@ -1,0 +1,54 @@
+@page
+@model ToolsModel
+@{
+    ViewData["Title"] = "Tools";
+}
+
+@if (Model.Error is not null)
+{
+    <div class="mb-6 rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 text-sm text-rose-200">@Model.Error</div>
+}
+
+<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <section class="card rounded-xl p-5">
+        <h2 class="mb-3 text-base font-semibold">Invoke a tool</h2>
+        <form method="post" class="space-y-3">
+            <div class="flex gap-2">
+                <input name="Plugin" value="@Model.Plugin" placeholder="Plugin (e.g. Calculator)"
+                       class="flex-1 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none" />
+                <input name="Function" value="@Model.Function" placeholder="Function (e.g. evaluate)"
+                       class="flex-1 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none" />
+            </div>
+            <textarea name="ArgumentsJson" rows="3" placeholder='{"expression":"3 + 4 * 2"}'
+                      class="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 font-mono text-sm focus:border-violet-500 focus:outline-none">@Model.ArgumentsJson</textarea>
+            <button class="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium hover:bg-violet-500">Invoke</button>
+        </form>
+        @if (Model.Result is not null)
+        {
+            <div class="mt-4 rounded-lg border border-slate-700 bg-slate-900 p-4">
+                <div class="text-xs uppercase tracking-wide @(Model.Result.Success ? "text-emerald-400" : "text-rose-400")">
+                    @(Model.Result.Success ? "success" : "failed")
+                </div>
+                <pre class="mt-2 text-sm text-slate-200">@(Model.Result.Success ? Model.Result.Output : Model.Result.Error)</pre>
+            </div>
+        }
+    </section>
+
+    <section class="card rounded-xl p-5">
+        <h2 class="mb-3 text-base font-semibold">Available tools (@Model.Tools.Count)</h2>
+        <div class="space-y-2">
+            @foreach (var t in Model.Tools)
+            {
+                <button type="button"
+                        onclick="document.getElementsByName('Plugin')[0].value='@t.PluginName';document.getElementsByName('Function')[0].value='@t.FunctionName';"
+                        class="w-full rounded-lg border border-slate-800 bg-slate-900 p-3 text-left hover:ring-1 hover:ring-violet-500/40">
+                    <div class="flex items-center justify-between">
+                        <span class="font-mono text-sm text-violet-300">@t.PluginName.@t.FunctionName</span>
+                        <span class="text-xs text-slate-500">@t.Parameters.Count param(s)</span>
+                    </div>
+                    <div class="mt-1 text-xs text-slate-400">@t.Description</div>
+                </button>
+            }
+        </div>
+    </section>
+</div>

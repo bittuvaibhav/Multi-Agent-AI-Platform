@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>Enterprise.Agent.Ui</RootNamespace>
+    <AssemblyName>Enterprise.Agent.Ui</AssemblyName>
+    <UserSecretsId>enterprise-agent-ui-9f2c1d47-3a6e-4b8f-9c2d-5e7a1b0c4d63</UserSecretsId>
+  </PropertyGroup>
+
+  <!--
+    Razor Pages UI. A thin client of the REST API: it reuses the platform's Models for typed
+    (de)serialisation and calls the API over HTTP (X-Api-Key attached server-side). The Chat
+    page connects to the API's SignalR hub from the browser via the signalr JS client (CDN).
+  -->
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Agent.Models\Enterprise.Agent.Models.csproj" />
+  </ItemGroup>
+
+</Project>

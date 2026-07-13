@@ -1,0 +1,80 @@
+@page
+@model AgentsModel
+@{
+    ViewData["Title"] = "Agents";
+}
+
+@if (Model.Error is not null)
+{
+    <div class="mb-6 rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 text-sm text-rose-200">@Model.Error</div>
+}
+
+<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <section class="card rounded-xl p-5">
+        <h2 class="mb-3 text-base font-semibold">Plan a goal</h2>
+        <form method="post" asp-page-handler="Plan" class="space-y-3">
+            <input name="Goal" value="@Model.Goal" placeholder="e.g. Research our competitors and draft a summary email"
+                   class="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none" />
+            <button class="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium hover:bg-violet-500">Create plan</button>
+        </form>
+        @if (Model.Plan is not null)
+        {
+            <div class="mt-4 rounded-lg border border-slate-700 bg-slate-900 p-4">
+                <div class="text-xs uppercase tracking-wide text-slate-400">@Model.Plan.Mode · @Model.Plan.Rationale</div>
+                <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                    @foreach (var step in Model.Plan.Steps.OrderBy(s => s.Order))
+                    {
+                        <li><span class="font-medium text-violet-300">@step.AgentName</span> — @step.Instruction</li>
+                    }
+                </ol>
+            </div>
+        }
+    </section>
+
+    <section class="card rounded-xl p-5">
+        <h2 class="mb-3 text-base font-semibold">Run a single agent</h2>
+        <form method="post" asp-page-handler="Run" class="space-y-3">
+            <select name="SelectedAgent" class="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                @foreach (var a in Model.Agents)
+                {
+                    <option value="@a.Name" selected="@(a.Name == Model.SelectedAgent)">@a.Name</option>
+                }
+            </select>
+            <textarea name="Input" rows="3" placeholder="Instruction for the agent…"
+                      class="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">@Model.Input</textarea>
+            <button class="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium hover:bg-violet-500">Run agent</button>
+        </form>
+        @if (Model.Result is not null)
+        {
+            <div class="mt-4 rounded-lg border border-slate-700 bg-slate-900 p-4">
+                <div class="text-xs uppercase tracking-wide @(Model.Result.Success ? "text-emerald-400" : "text-rose-400")">
+                    @Model.Result.AgentName · @(Model.Result.Success ? "success" : "failed")
+                </div>
+                <pre class="mt-2 text-sm text-slate-200">@(Model.Result.Success ? Model.Result.Output : Model.Result.ErrorMessage)</pre>
+            </div>
+        }
+    </section>
+</div>
+
+<h2 class="mb-3 mt-8 text-base font-semibold">Registered agents (@Model.Agents.Count)</h2>
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    @foreach (var a in Model.Agents)
+    {
+        <div class="card rounded-xl p-4">
+            <div class="flex items-center justify-between">
+                <div class="font-semibold text-violet-300">@a.Name</div>
+                <span class="rounded-full bg-slate-800 px-2 py-0.5 text-xs text-slate-300">@a.Role</span>
+            </div>
+            <div class="mt-1 text-sm text-slate-400">@a.Description</div>
+            @if (a.Keywords.Count > 0)
+            {
+                <div class="mt-2 flex flex-wrap gap-1">
+                    @foreach (var k in a.Keywords.Take(6))
+                    {
+                        <span class="rounded bg-slate-800 px-1.5 py-0.5 text-[11px] text-slate-400">@k</span>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>

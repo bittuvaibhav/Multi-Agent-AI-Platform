@@ -427,3 +427,15 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Enterprise.Agent platform specifics
+.env
+.env.*
+appsettings.*.local.json
+secrets.json
+**/docker-data/
+logs/
+
+# FUSE mount orphan files (created when a held-open file is deleted/overwritten)
+.fuse_hidden*
+**/.fuse_hidden*

@@ -1,0 +1,92 @@
+@page
+@model ChatModel
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<div class="mx-auto flex h-[calc(100vh-9rem)] max-w-3xl flex-col">
+    <div class="mb-3 flex items-center gap-3">
+        <select id="preferredAgent" class="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+            <option value="">Auto (planner decides)</option>
+            @foreach (var a in Model.Agents)
+            {
+                <option value="@a.Name">@a.Name</option>
+            }
+        </select>
+        <span id="status" class="text-xs text-slate-500">connecting…</span>
+    </div>
+
+    <div id="messages" class="card flex-1 space-y-3 overflow-y-auto rounded-xl p-4"></div>
+
+    <form id="chatForm" class="mt-3 flex gap-2">
+        <input id="messageInput" autocomplete="off" placeholder="Ask the multi-agent system…"
+               class="flex-1 rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm focus:border-violet-500 focus:outline-none" />
+        <button id="sendBtn" type="submit" class="rounded-lg bg-violet-600 px-5 py-3 text-sm font-medium hover:bg-violet-500 disabled:opacity-50">Send</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+    <script>
+        const hubUrl = "@Html.Raw(Model.HubUrl)";
+        const messagesEl = document.getElementById("messages");
+        const statusEl = document.getElementById("status");
+        const input = document.getElementById("messageInput");
+        const sendBtn = document.getElementById("sendBtn");
+        const form = document.getElementById("chatForm");
+        let conversationId = null;
+
+        function bubble(role, text) {
+            const wrap = document.createElement("div");
+            wrap.className = role === "user" ? "flex justify-end" : "flex justify-start";
+            const b = document.createElement("div");
+            b.className = role === "user"
+                ? "max-w-[80%] rounded-2xl rounded-br-sm bg-violet-600 px-4 py-2 text-sm text-white"
+                : "max-w-[80%] whitespace-pre-wrap rounded-2xl rounded-bl-sm bg-slate-800 px-4 py-2 text-sm text-slate-100";
+            b.textContent = text;
+            wrap.appendChild(b);
+            messagesEl.appendChild(wrap);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+            return b;
+        }
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl(hubUrl)
+            .withAutomaticReconnect()
+            .build();
+
+        let pending = null;
+        connection.on("Acknowledged", () => { pending = bubble("assistant", "…thinking…"); });
+        connection.on("ReceiveMessage", (response) => {
+            conversationId = response.conversationId ?? conversationId;
+            const agents = (response.agentsInvoked && response.agentsInvoked.length)
+                ? "\n\n— via " + response.agentsInvoked.join(", ") : "";
+            if (pending) { pending.textContent = (response.answer ?? "(no answer)") + agents; pending = null; }
+            else { bubble("assistant", (response.answer ?? "(no answer)") + agents); }
+            sendBtn.disabled = false;
+        });
+
+        connection.start()
+            .then(() => { statusEl.textContent = "connected"; statusEl.className = "text-xs text-emerald-400"; })
+            .catch(err => { statusEl.textContent = "hub unavailable — is the API running?"; statusEl.className = "text-xs text-rose-400"; console.error(err); });
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const text = input.value.trim();
+            if (!text) return;
+            bubble("user", text);
+            input.value = "";
+            sendBtn.disabled = true;
+            try {
+                await connection.invoke("SendMessage", {
+                    message: text,
+                    conversationId: conversationId,
+                    preferredAgent: document.getElementById("preferredAgent").value || null
+                });
+            } catch (err) {
+                bubble("assistant", "Failed to send: " + err);
+                sendBtn.disabled = false;
+            }
+        });
+    </script>
+}

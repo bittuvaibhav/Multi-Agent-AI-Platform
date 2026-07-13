@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Enterprise.Agent.Models</RootNamespace>
+    <AssemblyName>Enterprise.Agent.Models</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Agent.Shared\Enterprise.Agent.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

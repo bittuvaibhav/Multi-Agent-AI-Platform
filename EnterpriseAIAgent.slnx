@@ -1,0 +1,25 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/src/">
+    <Project Path="src/Enterprise.Agent.Api/Enterprise.Agent.Api.csproj" />
+    <Project Path="src/Enterprise.Agent.Core/Enterprise.Agent.Core.csproj" />
+    <Project Path="src/Enterprise.Agent.Infrastructure/Enterprise.Agent.Infrastructure.csproj" />
+    <Project Path="src/Enterprise.Agent.Memory/Enterprise.Agent.Memory.csproj" />
+    <Project Path="src/Enterprise.Agent.Models/Enterprise.Agent.Models.csproj" />
+    <Project Path="src/Enterprise.Agent.Persistence/Enterprise.Agent.Persistence.csproj" />
+    <Project Path="src/Enterprise.Agent.Plugins/Enterprise.Agent.Plugins.csproj" />
+    <Project Path="src/Enterprise.Agent.Prompts/Enterprise.Agent.Prompts.csproj" />
+    <Project Path="src/Enterprise.Agent.Security/Enterprise.Agent.Security.csproj" />
+    <Project Path="src/Enterprise.Agent.Shared/Enterprise.Agent.Shared.csproj" />
+    <Project Path="src/Enterprise.Agent.Tools/Enterprise.Agent.Tools.csproj" />
+    <Project Path="src/Enterprise.Agent.VectorStore/Enterprise.Agent.VectorStore.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Enterprise.Agent.IntegrationTests/Enterprise.Agent.IntegrationTests.csproj" />
+    <Project Path="tests/Enterprise.Agent.UnitTests/Enterprise.Agent.UnitTests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Enterprise.Agent.Infrastructure</RootNamespace>
+    <AssemblyName>Enterprise.Agent.Infrastructure</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SemanticKernel" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" />
+    <PackageReference Include="Microsoft.Extensions.AI" />
+    <PackageReference Include="UglyToad.PdfPig" />
+    <PackageReference Include="DocumentFormat.OpenXml" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Agent.Shared\Enterprise.Agent.Shared.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Models\Enterprise.Agent.Models.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Core\Enterprise.Agent.Core.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Prompts\Enterprise.Agent.Prompts.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.VectorStore\Enterprise.Agent.VectorStore.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Memory\Enterprise.Agent.Memory.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Tools\Enterprise.Agent.Tools.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Plugins\Enterprise.Agent.Plugins.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Persistence\Enterprise.Agent.Persistence.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Security\Enterprise.Agent.Security.csproj" />
+  </ItemGroup>
+
+</Project>

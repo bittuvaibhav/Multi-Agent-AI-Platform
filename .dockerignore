@@ -1,0 +1,17 @@
+**/bin/
+**/obj/
+**/out/
+artifacts/
+.git/
+.github/
+.vs/
+.vscode/
+.idea/
+**/*.user
+logs/
+**/docker-data/
+*.md
+!README.md
+.env
+.env.*
+tests/**/TestResults/

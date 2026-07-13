@@ -1,0 +1,66 @@
+@page
+@model MemoryModel
+@{
+    ViewData["Title"] = "Memory";
+}
+
+@if (Model.Error is not null)
+{
+    <div class="mb-6 rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 text-sm text-rose-200">@Model.Error</div>
+}
+@if (Model.Notice is not null)
+{
+    <div class="mb-6 rounded-lg border border-emerald-500/40 bg-emerald-500/10 p-4 text-sm text-emerald-200">@Model.Notice</div>
+}
+
+<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <section class="card rounded-xl p-5">
+        <h2 class="mb-3 text-base font-semibold">Conversation memory</h2>
+        <form method="post" asp-page-handler="Conversation" class="flex gap-2">
+            <input name="ConversationId" value="@Model.ConversationId" placeholder="Conversation id"
+                   class="flex-1 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none" />
+            <button class="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium hover:bg-violet-500">Load</button>
+        </form>
+        <div class="mt-4 space-y-2">
+            @foreach (var m in Model.Conversation)
+            {
+                <div class="rounded-lg border border-slate-800 bg-slate-900 p-3 text-sm">
+                    <div class="text-xs text-slate-500">@m.Scope · @m.CreatedAt.ToString("u")</div>
+                    <div class="mt-1 text-slate-200">@m.Content</div>
+                </div>
+            }
+            @if (Model.Conversation.Count == 0)
+            {
+                <div class="text-sm text-slate-500">No conversation memory loaded.</div>
+            }
+        </div>
+    </section>
+
+    <section class="card rounded-xl p-5">
+        <h2 class="mb-3 text-base font-semibold">Semantic memory</h2>
+        <form method="post" asp-page-handler="Remember" class="space-y-2">
+            <input name="MemoryKey" value="@Model.MemoryKey" placeholder="Key"
+                   class="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none" />
+            <textarea name="MemoryContent" rows="2" placeholder="Content to remember…"
+                      class="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">@Model.MemoryContent</textarea>
+            <button class="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium hover:bg-violet-500">Remember</button>
+        </form>
+
+        <form method="post" asp-page-handler="Recall" class="mt-5 flex gap-2">
+            <input name="RecallQuery" value="@Model.RecallQuery" placeholder="Recall by similarity…"
+                   class="flex-1 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none" />
+            <button class="rounded-lg border border-slate-600 px-4 py-2 text-sm font-medium hover:bg-slate-800">Recall</button>
+        </form>
+        <div class="mt-4 space-y-2">
+            @foreach (var m in Model.Recalled)
+            {
+                <div class="rounded-lg border border-slate-800 bg-slate-900 p-3 text-sm">
+                    <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span>@m.Key</span><span>score @m.RelevanceScore.ToString("0.000")</span>
+                    </div>
+                    <div class="mt-1 text-slate-200">@m.Content</div>
+                </div>
+            }
+        </div>
+    </section>
+</div>

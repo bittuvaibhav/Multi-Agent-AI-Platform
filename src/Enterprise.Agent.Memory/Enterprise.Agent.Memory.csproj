@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Enterprise.Agent.Memory</RootNamespace>
+    <AssemblyName>Enterprise.Agent.Memory</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Agent.Shared\Enterprise.Agent.Shared.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Models\Enterprise.Agent.Models.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.Core\Enterprise.Agent.Core.csproj" />
+    <ProjectReference Include="..\Enterprise.Agent.VectorStore\Enterprise.Agent.VectorStore.csproj" />
+  </ItemGroup>
+
+</Project>
