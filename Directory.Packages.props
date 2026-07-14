@@ -1,12 +1,11 @@
 <Project>
-
   <!-- Central Package Management: every package version is declared once here. -->
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
-
   <ItemGroup Label="AI / Semantic Kernel">
+    <PackageVersion Include="Microsoft.OpenApi" Version="2.7.5" />
     <PackageVersion Include="Microsoft.SemanticKernel" Version="1.78.0" />
     <PackageVersion Include="Microsoft.SemanticKernel.Abstractions" Version="1.78.0" />
     <PackageVersion Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.78.0" />
@@ -14,12 +13,10 @@
     <PackageVersion Include="Microsoft.Extensions.AI" Version="10.7.0" />
     <PackageVersion Include="Microsoft.Extensions.AI.Abstractions" Version="10.7.0" />
   </ItemGroup>
-
   <ItemGroup Label="Vector stores">
     <PackageVersion Include="Azure.Search.Documents" Version="12.0.0" />
     <PackageVersion Include="Pgvector" Version="0.3.2" />
   </ItemGroup>
-
   <ItemGroup Label="Web / API">
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
     <PackageVersion Include="Scalar.AspNetCore" Version="2.16.11" />
@@ -28,19 +25,16 @@
     <PackageVersion Include="Microsoft.IdentityModel.Tokens" Version="8.19.1" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.19.1" />
   </ItemGroup>
-
   <ItemGroup Label="CQRS / Validation / Mediator">
     <PackageVersion Include="MediatR" Version="12.5.0" />
     <PackageVersion Include="FluentValidation" Version="12.1.1" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
   </ItemGroup>
-
   <ItemGroup Label="Logging">
     <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageVersion Include="Serilog.Sinks.File" Version="7.0.0" />
   </ItemGroup>
-
   <ItemGroup Label="Persistence / Caching">
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.9" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.9" />
@@ -51,12 +45,10 @@
     <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.9" />
     <PackageVersion Include="StackExchange.Redis" Version="3.0.17" />
   </ItemGroup>
-
   <ItemGroup Label="Document ingestion (RAG)">
     <PackageVersion Include="UglyToad.PdfPig" Version="1.7.0-custom-5" />
     <PackageVersion Include="DocumentFormat.OpenXml" Version="3.5.1" />
   </ItemGroup>
-
   <ItemGroup Label="Microsoft.Extensions (DI / config / http / hosting)">
     <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.9" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.9" />
@@ -65,7 +57,6 @@
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.9" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.9" />
   </ItemGroup>
-
   <ItemGroup Label="Testing">
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.7.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
@@ -75,5 +66,4 @@
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.9" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.9" />
   </ItemGroup>
-
 </Project>

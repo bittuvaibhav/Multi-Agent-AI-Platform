@@ -10,10 +10,10 @@ COPY EnterpriseAIAgent.sln ./
 # Copy project files and restore.
 COPY src/ ./src/
 COPY tests/ ./tests/
-RUN dotnet restore src/Enterprise.Agent.Api/Enterprise.Agent.Api.csproj
+RUN dotnet restore src/Enterprise.Agent.Ui/Enterprise.Agent.Ui.csproj
 
-# Publish the API (Release, framework-dependent).
-RUN dotnet publish src/Enterprise.Agent.Api/Enterprise.Agent.Api.csproj \
+# Publish the UI (Release, framework-dependent).
+RUN dotnet publish src/Enterprise.Agent.Ui/Enterprise.Agent.Ui.csproj \
     -c Release -o /app/publish /p:UseAppHost=false
 
 # ---------- Runtime stage ----------
@@ -23,7 +23,7 @@ WORKDIR /app
 # Run as a non-root user.
 RUN useradd --system --create-home --shell /usr/sbin/nologin appuser
 COPY --from=build /app/publish ./
-RUN mkdir -p /app/logs && chown -R appuser /app
+RUN chown -R appuser /app
 USER appuser
 
 ENV ASPNETCORE_URLS=http://+:8080 \
@@ -35,4 +35,4 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
     CMD ["dotnet", "--info"]
 
-ENTRYPOINT ["dotnet", "Enterprise.Agent.Api.dll"]
+ENTRYPOINT ["dotnet", "Enterprise.Agent.Ui.dll"]
