@@ -439,3 +439,5 @@ logs/
 # FUSE mount orphan files (created when a held-open file is deleted/overwritten)
 .fuse_hidden*
 **/.fuse_hidden*
+
+.fake
